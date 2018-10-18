@@ -1,0 +1,277 @@
+<html>
+	<head>
+		<title>Game</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<link href="css/reset.css" rel="stylesheet">
+		<link href="css/game.css" rel="stylesheet" >
+		<link href="../css/main.css" rel="stylesheet" >
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+		<script type="text/javascript" src="js/jquery.hotkeys.js"></script>
+		<script type="text/javascript" src="js/gamemaking.js"></script>
+		<script type="text/javascript" src="js/modernizr-2.6.2.min.js"></script>
+		<script type="text/javascript" src="js/skrollr.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+		<style>
+			canvas {
+				border:1px solid #d3d3d3;
+				background-color: #f1f1f1;
+			}
+		</style>
+
+	</head>
+	<body onload="startGame()">
+			<header>
+			<a class="menu-icon">
+
+			 <span></span>
+
+			<nav class="menu visuallyhidden">
+				<ul>
+					<li><a href="#home">Home</a></li>
+					<li><a href="#work">Survey</a></li>
+					<li><a href="#about">About </a></li>
+					<li><a href="#contact">Login</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<div id="game-box">
+			<script>
+				var myGamePiece;
+				var myBackground;
+				var myObstacles = [];
+				var myScore;
+				var mySound;
+				var myMusic;
+				var count = 0;
+
+				function startGame() {
+					myGamePiece = new component(30, 30, "data/sheep.gif", 10, 120, "image");
+					myGamePiece.gravity = 0.05;
+					myBackground = new component(760, 480, "data/editedmountain.gif", 0, 0, "background");
+					myScore = new component("30px", "Consolas", "black", 280, 40, "text");
+					mySound = new Audio("data/saku02.mp3");
+					myAudio = new Audio("data/Senses_Circuit_loop_86.mp3");
+					if (typeof myAudio.loop == 'boolean')
+					{
+						myAudio.loop = true;
+					}
+					else
+					{
+						myAudio.addEventListener('ended', function() {
+							this.currentTime = 0;
+							this.play();
+						}, false);
+					}
+					myGameArea.start();
+				}
+
+
+				var myGameArea = {
+					canvas : document.createElement("canvas"),
+					start : function() {
+						this.canvas.width = 720;
+						this.canvas.height = 480;
+						this.context = this.canvas.getContext("2d");
+						document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+						this.frameNo = 0;
+						this.interval = setInterval(updateGameArea, 20);
+						},
+					 stop : function() {
+						clearInterval(this.interval);
+					},
+					clear : function() {
+						this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+					}
+				}
+
+				function component(width, height, color, x, y, type) {
+					this.type = type;
+					if (type == "image" || type == "background") {
+						this.image = new Image();
+						this.image.src = color;
+					}
+					this.score = 0;
+					this.width = width;
+					this.height = height;
+					this.speedX = 0;
+					this.speedY = 0;
+					this.x = x;
+					this.y = y;
+					this.gravity = 0;
+					this.gravitySpeed = 0;
+					this.bounce = 0.4;
+					this.update = function() {
+						ctx = myGameArea.context;
+						if (type == "image" || type == "background") {
+						  ctx.drawImage(this.image,
+							this.x,
+							this.y,
+							this.width, this.height);
+							if (type == "background") {
+								ctx.drawImage(this.image,
+								this.x + this.width, this.y, this.width, this.height);
+							}
+						}
+						else if (this.type == "text") {
+							ctx.font = this.width + " " + this.height;
+							ctx.fillStyle = color;
+							ctx.fillText(this.text, this.x, this.y);
+						} else {
+							ctx.fillStyle = color;
+							ctx.fillRect(this.x, this.y, this.width, this.height);
+						}
+					}
+					this.newPos = function() {
+						this.gravitySpeed += this.gravity;
+
+						if(keydown.up) {
+							myGamePiece.gravity = -0.2;
+						}else{
+							myGamePiece.gravity = 0.05;
+						}
+
+
+						if(keydown.left) {
+							myGamePiece.speedX = -1;
+						}
+
+						if(keydown.right) {
+							myGamePiece.speedX = 1;
+						}
+
+						this.x += this.speedX;
+						this.y += this.speedY + this.gravitySpeed;
+						if (this.y  <= 0) {
+							this.y = 0;
+							this.gravitySpeed = -(this.gravitySpeed * this.bounce);
+						}
+						this.hitBottom();
+						if (this.type == "background") {
+							if (this.x == -(this.width)) {
+								this.x = 0;
+							}
+						}
+
+					}
+					this.hitBottom = function() {
+						var rockbottom = myGameArea.canvas.height - this.height;
+						if (this.y > rockbottom) {
+							this.y = rockbottom;
+							this.gravitySpeed = 0;
+						}
+					}
+					this.crashWith = function(otherobj) {
+						var myleft = this.x;
+						var myright = this.x + (this.width);
+						var mytop = this.y;
+						var mybottom = this.y + (this.height);
+						var otherleft = otherobj.x;
+						var otherright = otherobj.x + (otherobj.width);
+						var othertop = otherobj.y;
+						var otherbottom = otherobj.y + (otherobj.height);
+						var crash = true;
+						if ((mybottom < othertop) || (mytop > otherbottom) || (myright < otherleft) || (myleft > otherright)) {
+							crash = false;
+						}
+						return crash;
+					}
+				}
+
+				function updateGameArea() {
+					var x, y, height, gap, minHeight, maxHeight, minGap, maxGap, minWidth, maxWidth, width;
+					for (i = 0; i < myObstacles.length; i += 1) {
+						if (myGamePiece.crashWith(myObstacles[i])) {
+							myGamePiece.image.src = "data/ded.gif";
+							myAudio.loop = false;
+							mySound.play();
+							myAudio.pause();
+							myGameArea.stop();
+
+							return;
+						}
+					}
+					myGameArea.clear();
+					myBackground.speedX = -1;
+					myBackground.newPos();
+					clearmove()
+    				myBackground.update();
+					myGameArea.frameNo += 1;
+					if (myGameArea.frameNo == 1 || everyinterval(150)) {
+						x = myGameArea.canvas.width;
+						y = myGameArea.canvas.height;
+						minHeight = 20;
+						maxHeight = 300;
+						minWidth = 20;
+						maxWidth = 200;
+						height = Math.floor(Math.random()*(maxHeight-minHeight+1)+minHeight);
+						width = Math.floor(Math.random()*(maxWidth-minWidth+1)+minWidth);
+						minGap = 200;
+						maxGap = 300;
+						gap = Math.floor(Math.random()*(maxGap-minGap+1)+minGap);
+						myObstacles.push(new component(width, height, "#5DADE2", x, 0));
+						myObstacles.push(new component(y- width - gap, x - height - gap, "#F4D03F", x, height + gap));
+					}
+					for (i = 0; i < myObstacles.length; i += 1) {
+						myObstacles[i].x += -1;
+						myObstacles[i].update();
+					}
+					myScore.text="SCORE: " + myGameArea.frameNo;
+					myScore.update();
+					myGamePiece.newPos();
+					myGamePiece.update();
+
+				}
+
+				function everyinterval(n) {
+					if ((myGameArea.frameNo / n) % 1 == 0) {return true;}
+					return false;
+				}
+				function clearmove() {
+					myGamePiece.speedX = 0;
+					myGamePiece.speedY = 0;
+				}
+
+				function musicOnOff() {
+					count ++
+					if(count%2==1){
+						myAudio.play();
+					}else{
+						myAudio.pause()
+					}
+				}
+			</script>
+			<br>
+			<div class="control">
+				<button onmousedown="musicOnOff()" onmouseup="" class="but">Play Background Music</button><br><br>
+			</div>
+		</div>
+		<div id = "writing">
+		<p>Make sure you don't hit the bar or something</p>
+		<p>Be happy?</p>
+	</div>
+
+
+	<section id="bottom bar">
+	  <nav class="bottom">
+			<ul>
+				<li><a href="feedback.html">Feedback</a></li>
+				<li><a href="FAQ.html">FAQ</a></li>
+				<li><a href="privacy.html">Privacy Policy</a></li>
+				<li><a href="#work">Site Map</a></li>
+			</ul>
+	  </nav>
+	</section>
+
+		<footer id="footer" class="row">
+			<div class="footer-content page">
+				<div class="col f1">
+					<p>Copyright &copy; 2017.Company name All rights reserved.</p>
+				</div>
+	</div>
+		</footer>
+	</div>
+	<div class="loader"></div>
+	</body>
+</html>

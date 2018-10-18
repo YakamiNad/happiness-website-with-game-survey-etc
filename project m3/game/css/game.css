@@ -1,0 +1,101 @@
+.control{
+	display: inline-block;
+	width:100%;
+	text-align:center;
+	margin: -12%;
+
+}
+
+canvas {
+	margin: 100px 0px 25px;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 25%;
+    margin-right: 25%;
+    display: inline-block;
+    width: 50%;
+}
+
+.but {
+	position: relative;
+    display: inline-block;
+    font-family: 'Lato', Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    font-size: 16px;
+    padding: 0 7px;
+    line-height: 55px;
+	margin-left: 90%;
+
+	background-color: #F10061;
+
+            border-radius: 45px;
+
+            background-clip: padding-box;
+
+    color: #fff;
+    border: 0;
+
+            transition: background-color 0.8s ease;
+}
+
+.but:hover,
+.but:active {
+    background-color: #26d9d9;
+}
+
+#info{
+	padding: 0px 10rem 0px 10rem;
+}
+
+#info img {
+	display: block;
+	width: 100;
+    height: 100;
+	padding: 10px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+#butt1 {
+	display: inline-block;
+    padding: 0px;
+    margin: 0 27px;
+}
+#butt2 {
+	display: inline-block;
+    padding: 0px;
+    margin: 0 27px;
+}
+#butt3 {
+	display: inline-block;
+    padding: 0px;
+    margin: 0px;
+}
+
+.floatthis{
+	float: left;
+    position: relative;
+    left: 50%;
+}
+
+.floatthis-left{
+	float: left;
+     position: relative;
+     left: -50%;
+}
+
+.butt{
+	width: 100;
+    height: 100;
+}
+#writing {
+	display: block;
+	font-size: 2rem;
+    padding-top: 10rem;
+    width: 50%;
+	margin-left: auto;
+	margin-right:auto;
+	text-align: center;
+	padding-bottom: 4rem;
+}

@@ -1,0 +1,240 @@
+#after_submit {
+  visibility: hidden;
+  background: ff;
+  margin-left: 20%;
+  margin-top: 8%;
+  display: block;
+  position: relative;
+  height: auto;
+  padding: 10px 20px 0px 20px;
+  width: 800px;
+  border-radius: 20px;
+  float: left;
+}
+
+#quiz {
+  margin-left: 300px;
+  margin-top: 8%;
+  margin-bottom: 0px;
+  display: block;
+  position: relative;
+  height: auto;
+  padding: 10px 20px 0px 20px;
+  width: 800px;
+  border-radius: 20px;
+  float: left;
+}
+
+
+input {
+  margin-bottom: 20px;
+}
+
+label {
+  font-family: "Avenir", Avenir, sans-serif;
+  font-size: 17px;
+}
+
+input[type=radio] + label {
+	...
+}
+
+h1 {
+  font-family: "Lato", Helvetica, Arial, sans-serif;
+}
+
+p {
+  font-family: "Avenir", Avenir, serif;
+  font-size: 23px;
+  color: #F10061;
+}
+#button {
+  background-color: #F10061;
+  border: 1px solid white;
+  border-radius: 2px;
+  padding: 15px;
+  color: white;
+  font-size: 16px;
+  transition-duration: .5s;
+  margin-top: 4rem;
+  margin-left:40%;
+}
+
+#button:hover {
+  background-color: white;
+  border: 1px solid #F10061;
+  color: black;
+  cursor: pointer;
+}
+
+#percentage_score {
+  text-align: center;
+}
+
+#message {
+  text-align: center;
+}
+
+#link {
+  position: center;
+  background-color: #F10061;
+  border: 1px solid white;
+  border-radius: 2px;
+  padding: 15px;
+  color: white;
+  font-size: 16px;
+  transition-duration: .5s;
+  margin-top: 15px;
+  margin-bottom: 50px;
+  margin-left:41%;
+
+}
+
+#link:hover {
+  background-color: white;
+  border: 1px solid #F10061;
+  color: black;
+  cursor: pointer;
+}
+
+#load {
+    margin-top: 10rem;
+    margin-bottom: 50px;
+    margin-left:40%;
+  }
+
+
+
+#start {
+  background-color: transparent;
+}
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+
+.menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 8999;
+    background: rgb(200,200,200);
+    display: table;
+    opacity: 1;
+    visibility: visible;
+
+    transition: opacity 0.3s ease-out, visibility 0.2s ease-out;
+}
+
+.menu.visuallyhidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.menu ul {
+    width: 100%;
+    text-align: left;
+    padding-top: 130px;
+}
+
+.menu ul li a {
+    display: block;
+    color: #000;
+    font-family: 'Lato', Helvetica, Arial, sans-serif;
+    font-size: 2.25rem;
+    font-size: 27px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    padding: 18px 0 18px 45px;
+
+            transition: background 0.2s ease, color 0.2s ease;
+}
+
+.menu ul li a:hover {
+    color: #F10061;
+    background-color: #fff;
+}
+
+.menu-icon {
+    width: 63px;
+    height: 63px;
+    display: inline-block;
+    position: fixed;
+    top: 45px;
+    left: 45px;
+    cursor: pointer;
+    z-index: 9999;
+
+            transition: opacity 0.2s 1.6s ease-out;
+}
+
+
+.menu-icon span {
+    width: 41px;
+    height: 2px;
+    position: relative;
+    display: inline-block;
+    background: #F10061;
+
+            transition: background 0.4s ease-out;
+}
+
+.menu-icon span:before {
+    top: 9px;
+}
+
+.menu-icon span:before,
+.menu-icon span:after {
+    width: 41px;
+    height: 2px;
+    display: inline-block;
+    background: #F10061;
+    position: absolute;
+    left: 0;
+    content: "";
+
+    transform-origin: 50% 50%;
+    transition: top 0.2s 0.2s ease-out,
+    transform 0.2s -out;
+}
+
+.menu-icon span:after {
+    top: -9px;
+}
+
+.menu-icon.close span {
+            transition: background 0.2s ease-out;
+
+    background-color: transparent;
+}
+
+.menu-icon.close span:before {
+            transform: rotate3d(0, 0, 1, 45deg);
+}
+
+.menu-icon.close span:before,
+.menu-icon.close span:after {
+    transition: top 0.2s ease-out,
+    transform 0.2s 0.2s ease-out,
+    background 0.2s ease-out;
+
+    top: 0;
+    width: 41px;
+    background-color: #000;
+}
+
+.menu-icon.close span:after {
+            transform: rotate3d(0, 0, 1, -45deg);
+}
+
+.menu-icon p {
+    font-size: 1rem;
+    font-size: 16px;
+    font-weight: 400;
+    margin-top: 18px;
+    display: inline-block;
+    color: #F10061;
+}

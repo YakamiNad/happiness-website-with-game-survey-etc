@@ -1,0 +1,14 @@
+<p> firstname
+<input type="text" name="firstname" onChange="displayName(firstname.value,lastname.value)"></p>
+
+
+
+
+
+
+
+SELECT Department.name,COUNT(*)
+FROM Staff INNER JOIN Department ON Staff.deptdid_fk=Department.deptdid
+WHERE Staff.DoB< "#1990/01/01#"
+GROUP BY Department.name//可有可无
+HAVING COUNT(*)>1;

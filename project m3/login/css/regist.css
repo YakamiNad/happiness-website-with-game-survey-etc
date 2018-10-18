@@ -1,0 +1,52 @@
+.but {
+	position: relative;
+    display: inline-block;
+    font-family: 'Lato', Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    font-size: 16px;
+    padding: 10px 7px;
+    line-height: 55px;
+	width: 100%;
+	margin-top: 1rem;
+	
+	background-color: #F10061;
+
+            border-radius: 45px;
+
+            background-clip: padding-box;
+
+    color: #fff;
+    border: 0;
+
+            transition: background-color 0.8s ease;
+}
+
+.but:hover,
+.but:active {
+    background-color: #26d9d9;
+}
+
+
+input{
+  width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+form{
+  margin: 100px;
+}
